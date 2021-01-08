@@ -2,6 +2,9 @@
 #include  "cartoon.h"
 
 #define DEBUG 0
+#define EDGES 0
+#define DEVEL 0
+#define ALIEN 1
 int main(int argc, char* argv[]) {
 	int cameraNumber = 0;
 	if (argc > 1)
@@ -26,8 +29,16 @@ int main(int argc, char* argv[]) {
 		}
 
 		cv::Mat displayedFrame(cameraFrame.size(), CV_8UC3);
+#if EDGES == 1
 		cartoonifyImage(cameraFrame, displayedFrame);
-
+#endif
+#if DEVEL == 1
+		cartoonDevImage(cameraFrame, displayedFrame);
+#endif
+#if ALIEN == 1
+		cartoonifyImage(cameraFrame, displayedFrame, true);
+		cartoonAlien(displayedFrame, displayedFrame);
+#endif
 #if DEBUG == 1
 		imshow("original", cameraFrame);
 #endif
